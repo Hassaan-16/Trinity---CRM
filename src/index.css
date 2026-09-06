@@ -1,0 +1,346 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --trinity-burgundy: #7B1113;
+  --trinity-burgundy-dark: #500709;
+  --trinity-burgundy-light: #9B1B20;
+  --trinity-gold: #C5A059;
+  --trinity-gold-light: #e0be7d;
+  --trinity-dark-blue: #161A28;
+  --trinity-card-bg: #212638;
+  --trinity-card-hover: #2B3148;
+  --font-heading: 'Cinzel', 'Plus Jakarta Sans', serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #F8FAFC;
+  color: #1E293B;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--trinity-burgundy);
+}
+
+/* Typography */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+/* Brand Navbar */
+.trinity-navbar {
+  background: linear-gradient(90deg, #590B0D 0%, #7B1113 45%, #92161B 100%);
+  border-bottom: 2px solid var(--trinity-gold);
+  box-shadow: 0 4px 20px rgba(123, 17, 19, 0.25);
+}
+
+.trinity-brand-title {
+  font-family: var(--font-heading);
+  letter-spacing: 1.5px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.trinity-brand-sub {
+  font-size: 0.68rem;
+  letter-spacing: 2.2px;
+  font-weight: 600;
+  color: var(--trinity-gold-light);
+}
+
+.nav-link-trinity {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-link-trinity:hover,
+.nav-link-trinity.active {
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+/* Trinity Buttons */
+.btn-trinity-primary {
+  background: linear-gradient(135deg, var(--trinity-burgundy) 0%, var(--trinity-burgundy-light) 100%);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(123, 17, 19, 0.2);
+}
+
+.btn-trinity-primary:hover {
+  background: linear-gradient(135deg, var(--trinity-burgundy-dark) 0%, var(--trinity-burgundy) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(123, 17, 19, 0.35);
+}
+
+.btn-trinity-gold {
+  background: linear-gradient(135deg, #B58C3E 0%, #D4AF37 100%);
+  color: #1A1A1A !important;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(181, 140, 62, 0.3);
+}
+
+.btn-trinity-gold:hover {
+  background: linear-gradient(135deg, #9C752B 0%, #C5A059 100%);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(181, 140, 62, 0.45);
+}
+
+.btn-outline-trinity {
+  border: 2px solid var(--trinity-burgundy);
+  color: var(--trinity-burgundy);
+  font-weight: 600;
+  border-radius: 8px;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-trinity:hover {
+  background: var(--trinity-burgundy);
+  color: #FFFFFF;
+}
+
+/* Course / Module Dark Cards (matching screenshot 1) */
+.aviation-card {
+  background: linear-gradient(160deg, #2E334D 0%, #202438 50%, #461C27 100%);
+  color: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.aviation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--trinity-gold), var(--trinity-burgundy-light));
+  opacity: 0.8;
+}
+
+.aviation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(123, 17, 19, 0.22);
+  border-color: rgba(197, 160, 89, 0.4);
+}
+
+.aviation-card .card-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  color: #E2E8F0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.aviation-card:hover .card-icon-wrapper {
+  background: rgba(197, 160, 89, 0.2);
+  color: var(--trinity-gold-light);
+  transform: scale(1.08);
+}
+
+.aviation-card .card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.aviation-card .card-description {
+  font-size: 0.875rem;
+  color: #CBD5E1;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+/* Section Title with Gold Highlights */
+.section-headline {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--trinity-burgundy);
+  position: relative;
+  display: inline-block;
+}
+
+.section-headline span {
+  color: #B58C3E;
+}
+
+.section-headline::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--trinity-burgundy);
+  margin: 8px auto 0 auto;
+  border-radius: 2px;
+}
+
+/* Admin Sidebar */
+.admin-sidebar {
+  background: linear-gradient(180deg, #5B0B0D 0%, #400608 100%);
+  color: #FFFFFF;
+  min-height: calc(100vh - 65px);
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  transition: all 0.2s ease;
+}
+
+.admin-nav-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.admin-nav-item.active {
+  background: rgba(197, 160, 89, 0.25);
+  color: #FFF;
+  border-left: 4px solid var(--trinity-gold);
+  font-weight: 700;
+}
+
+/* Course Study Sidebar Tabs (matching screenshot 2) */
+.study-nav-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  border: 1px solid #E2E8F0;
+}
+
+.study-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #475569;
+  text-align: left;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.study-nav-btn:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.study-nav-btn.active {
+  background: var(--trinity-burgundy);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(123, 17, 19, 0.25);
+}
+
+/* Order Card (matching screenshot 6) */
+.order-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  border-left: 5px solid var(--trinity-gold);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.order-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.09);
+  transform: translateY(-2px);
+}
+
+/* Floating Switcher */
+.floating-role-switcher {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  background: #1E293B;
+  color: #FFF;
+  padding: 10px 16px;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Hero Section */
+.hero-banner {
+  background: linear-gradient(135deg, #4A080A 0%, #7B1113 60%, #202438 100%);
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(197, 160, 89, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
