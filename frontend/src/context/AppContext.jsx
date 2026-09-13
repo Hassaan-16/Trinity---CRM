@@ -326,19 +326,46 @@ export const AppProvider = ({ children }) => {
     );
   };
 
-  // Admin: Add new student user
+  // Add new student user
   const addUser = (userData) => {
     const newUser = {
       id: `usr-${Date.now()}`,
       name: userData.name,
       email: userData.email,
       role: 'student',
-      licenseGoal: userData.licenseGoal || 'EASA B1.1',
+      birthCountry: userData.birthCountry || 'United Kingdom',
       phone: userData.phone || '',
       enrolledCourses: userData.initialCourse ? [userData.initialCourse] : []
     };
     setUsers(prev => [...prev, newUser]);
     return newUser;
+  };
+
+  // Update user profile details
+  const updateUserProfile = (email, updatedFields) => {
+    setUsers(prev =>
+      prev.map(u => (u.email.toLowerCase() === email.toLowerCase() ? { ...u, ...updatedFields } : u))
+    );
+  };
+
+  // Simulated Google OAuth login
+  const googleLogin = () => {
+    const googleEmail = 'student.google@trinityaviation.com';
+    let existingUser = users.find(u => u.email.toLowerCase() === googleEmail.toLowerCase());
+    if (!existingUser) {
+      existingUser = {
+        id: `usr-${Date.now()}`,
+        name: 'Alex Vance (Google Account)',
+        email: googleEmail,
+        role: 'student',
+        birthCountry: 'United Kingdom',
+        phone: '+44 7700 900077',
+        enrolledCourses: ['course-1', 'module-1']
+      };
+      setUsers(prev => [...prev, existingUser]);
+    }
+    login(existingUser.email, 'student');
+    return existingUser;
   };
 
   // Reset demo data
@@ -410,6 +437,8 @@ export const AppProvider = ({ children }) => {
         grantAccess,
         revokeAccess,
         addUser,
+        updateUserProfile,
+        googleLogin,
         resetAllData,
         isEnrolled,
         isPendingApproval

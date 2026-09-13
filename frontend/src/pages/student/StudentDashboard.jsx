@@ -188,7 +188,7 @@ export const StudentDashboard = () => {
                       ) : pending ? (
                         <span className="badge bg-warning text-dark px-2 py-1">Approval Pending</span>
                       ) : (
-                        <span className="badge bg-light text-dark px-2 py-1">${course.price}</span>
+                        <span className="badge bg-light text-dark px-2 py-1">€{course.price}</span>
                       )}
                     </div>
 
@@ -217,7 +217,7 @@ export const StudentDashboard = () => {
                           className="btn btn-trinity-gold w-100 rounded-pill py-2 fw-bold"
                           onClick={() => setSelectedCourseForPayment(course)}
                         >
-                          Enroll Now • ${course.price.toFixed(2)}
+                          Enroll Now • €{course.price.toFixed(2)}
                         </button>
                       )}
                     </div>
@@ -251,7 +251,7 @@ export const StudentDashboard = () => {
                       ) : pending ? (
                         <span className="badge bg-warning text-dark px-2 py-1">Approval Pending</span>
                       ) : (
-                        <span className="badge bg-light text-dark px-2 py-1">${module.price}</span>
+                        <span className="badge bg-light text-dark px-2 py-1">€{module.price}</span>
                       )}
                     </div>
 
@@ -278,7 +278,7 @@ export const StudentDashboard = () => {
                           className="btn btn-trinity-gold w-100 rounded-pill py-2 fw-bold"
                           onClick={() => setSelectedCourseForPayment(module)}
                         >
-                          Enroll Now • ${module.price.toFixed(2)}
+                          Enroll Now • €{module.price.toFixed(2)}
                         </button>
                       )}
                     </div>

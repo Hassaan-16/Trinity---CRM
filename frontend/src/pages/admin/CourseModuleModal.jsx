@@ -24,6 +24,8 @@ export const CourseModuleModal = ({ item, isCourse = false, onClose, onSave }) =
     duration: item?.duration || '30 Hours',
     status: item?.status || 'Active',
     icon: item?.icon || (isCourse ? 'Plane' : 'BookOpen'),
+    lastCertified: item?.lastCertified || new Date().toISOString().split('T')[0],
+    recertIntervalMonths: item?.recertIntervalMonths || 24,
     books: item?.books ? JSON.parse(JSON.stringify(item.books)) : [],
     notes: item?.notes ? JSON.parse(JSON.stringify(item.notes)) : [],
     quizzes: item?.quizzes ? JSON.parse(JSON.stringify(item.quizzes)) : []
@@ -258,7 +260,7 @@ export const CourseModuleModal = ({ item, isCourse = false, onClose, onSave }) =
                     </div>
 
                     <div className="col-md-3">
-                      <label className="form-label small fw-semibold text-dark">Price (USD $)</label>
+                      <label className="form-label small fw-semibold text-dark">Price (EUR €)</label>
                       <input
                         type="number"
                         step="0.01"
@@ -278,6 +280,30 @@ export const CourseModuleModal = ({ item, isCourse = false, onClose, onSave }) =
                         value={formData.duration}
                         onChange={(e) => handleChange('duration', e.target.value)}
                       />
+                    </div>
+
+                    <div className="col-md-6">
+                      <label className="form-label small fw-semibold text-dark">Last Certified Date</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={formData.lastCertified || ''}
+                        onChange={(e) => handleChange('lastCertified', e.target.value)}
+                      />
+                    </div>
+
+                    <div className="col-md-6">
+                      <label className="form-label small fw-semibold text-dark">Recertification Interval (Months)</label>
+                      <input
+                        type="number"
+                        min="6"
+                        step="6"
+                        className="form-control"
+                        placeholder="24"
+                        value={formData.recertIntervalMonths || 24}
+                        onChange={(e) => handleChange('recertIntervalMonths', parseInt(e.target.value) || 24)}
+                      />
+                      <span className="small text-muted">Recertification exams held every 2 years (24 months)</span>
                     </div>
 
                     <div className="col-12">

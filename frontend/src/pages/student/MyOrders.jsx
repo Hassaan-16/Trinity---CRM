@@ -77,7 +77,7 @@ export const MyOrders = () => {
                   <div className="mb-4">
                     <span className="text-dark fw-bold fs-5">Total: </span>
                     <span className="fs-4 fw-bold" style={{ color: '#7B1113' }}>
-                      ${order.total ? order.total.toFixed(2) : '0.00'}
+                      €{order.total ? order.total.toFixed(2) : '0.00'}
                     </span>
                   </div>
 
@@ -146,7 +146,7 @@ export const MyOrders = () => {
                     </div>
                     <div className="d-flex justify-content-between">
                       <span className="text-secondary small">Total Settled:</span>
-                      <strong className="text-danger fs-5">${selectedOrder.total?.toFixed(2)}</strong>
+                      <strong className="text-danger fs-5">€{selectedOrder.total?.toFixed(2)}</strong>
                     </div>
                   </div>
 
