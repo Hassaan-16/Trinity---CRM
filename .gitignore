@@ -113,5 +113,5 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
-data/
+/data/
 backend/data/
