@@ -3,16 +3,23 @@ import { useApp } from '../../context/AppContext';
 import { User, Mail, Shield, Award, Phone, CheckCircle2, Save } from 'lucide-react';
 
 export const MyAccount = () => {
-  const { currentUser, coursesAndModules } = useApp();
+  const { currentUser, coursesAndModules, updateUserProfile } = useApp();
   const [name, setName] = useState(currentUser?.name || 'Alex Vance');
   const [phone, setPhone] = useState(currentUser?.phone || '+44 7700 900077');
-  const [licenseGoal, setLicenseGoal] = useState(currentUser?.licenseGoal || 'EASA B1.1 (Aeroplanes Turbine)');
+  const [birthCountry, setBirthCountry] = useState(currentUser?.birthCountry || 'United Kingdom');
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   const enrolledList = coursesAndModules.filter(c => currentUser?.enrolledCourses?.includes(c.id));
 
   const handleSave = (e) => {
     e.preventDefault();
+    if (currentUser?.email) {
+      updateUserProfile(currentUser.email, {
+        name,
+        phone,
+        birthCountry
+      });
+    }
     setSavedSuccess(true);
     setTimeout(() => setSavedSuccess(false), 2500);
   };
@@ -26,7 +33,7 @@ export const MyAccount = () => {
               <User className="text-danger" size={28} /> My Account
             </h2>
             <span className="text-secondary small">
-              Manage your student profile, contact information, and target aviation credentials
+              Manage your student profile, contact information, and account details
             </span>
           </div>
         </div>
@@ -64,6 +71,17 @@ export const MyAccount = () => {
                 </div>
 
                 <div className="mb-3">
+                  <label className="form-label small fw-semibold text-dark">Place of Birth Country</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="e.g. United Kingdom, Germany, UAE..."
+                    value={birthCountry}
+                    onChange={(e) => setBirthCountry(e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-4">
                   <label className="form-label small fw-semibold text-dark">Phone / WhatsApp</label>
                   <input
                     type="text"
@@ -71,21 +89,6 @@ export const MyAccount = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
-                </div>
-
-                <div className="mb-4">
-                  <label className="form-label small fw-semibold text-dark">Aviation Licence Aim</label>
-                  <select
-                    className="form-select"
-                    value={licenseGoal}
-                    onChange={(e) => setLicenseGoal(e.target.value)}
-                  >
-                    <option value="EASA B1.1 (Aeroplanes Turbine)">EASA B1.1 (Aeroplanes Turbine)</option>
-                    <option value="EASA B1.2 (Aeroplanes Piston)">EASA B1.2 (Aeroplanes Piston)</option>
-                    <option value="EASA B2 (Avionics)">EASA B2 (Avionics)</option>
-                    <option value="EASA Category A (Line Maintenance)">EASA Category A (Line Maintenance)</option>
-                    <option value="EASA Category C (Base Maintenance Certifier)">EASA Category C (Base Maintenance Certifier)</option>
-                  </select>
                 </div>
 
                 <button type="submit" className="btn btn-trinity-primary px-4 py-2 rounded-3 fw-bold d-flex align-items-center gap-2">

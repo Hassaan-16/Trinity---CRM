@@ -107,7 +107,7 @@ export const ManageModules = () => {
                     </td>
                     <td>
                       <strong className="text-dark d-block">{mod.title}</strong>
-                      <span className="text-muted small">Tuition: ${mod.price?.toFixed(2)} • {mod.duration}</span>
+                      <span className="text-muted small">Tuition: €{mod.price?.toFixed(2)} • {mod.duration}</span>
                     </td>
                     <td className="text-center">
                       <span className="badge bg-light text-dark border">

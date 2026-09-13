@@ -38,7 +38,7 @@ export const GrantAccess = () => {
     name: '',
     email: '',
     phone: '',
-    licenseGoal: 'EASA B1.1 (Aeroplanes Turbine)'
+    birthCountry: 'United Kingdom'
   });
   const [actionNotice, setActionNotice] = useState(null);
 
@@ -113,7 +113,7 @@ export const GrantAccess = () => {
     });
 
     setIsAddingUser(false);
-    setNewUserForm({ name: '', email: '', phone: '', licenseGoal: 'EASA B1.1' });
+    setNewUserForm({ name: '', email: '', phone: '', birthCountry: 'United Kingdom' });
     setActionNotice(`New student ${newUserForm.name} registered and enrolled in ${activeCourse.title}!`);
     setTimeout(() => setActionNotice(null), 3500);
   };
@@ -418,16 +418,15 @@ export const GrantAccess = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label className="form-label small fw-semibold text-dark">Target EASA Category</label>
-                    <select
-                      className="form-select"
-                      value={newUserForm.licenseGoal}
-                      onChange={(e) => setNewUserForm({ ...newUserForm, licenseGoal: e.target.value })}
-                    >
-                      <option value="EASA B1.1 (Aeroplanes Turbine)">EASA B1.1 (Aeroplanes Turbine)</option>
-                      <option value="EASA B2 (Avionics)">EASA B2 (Avionics)</option>
-                      <option value="EASA Category A">EASA Category A</option>
-                    </select>
+                    <label className="form-label small fw-semibold text-dark">Place of Birth Country</label>
+                    <input
+                      type="text"
+                      required
+                      className="form-control"
+                      placeholder="e.g. United Kingdom, Germany, UAE..."
+                      value={newUserForm.birthCountry}
+                      onChange={(e) => setNewUserForm({ ...newUserForm, birthCountry: e.target.value })}
+                    />
                   </div>
 
                   <div className="alert alert-info small mb-0">

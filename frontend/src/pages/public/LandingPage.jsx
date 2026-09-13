@@ -142,7 +142,7 @@ export const LandingPage = ({ onOpenAuth, onSelectCourse }) => {
                   <div className="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25 mt-auto">
                     <div>
                       <span className="text-secondary small d-block">Tuition Fee</span>
-                      <strong className="text-warning fs-5">${course.price.toFixed(2)}</strong>
+                      <strong className="text-warning fs-5">€{course.price.toFixed(2)}</strong>
                     </div>
                     <button
                       className="btn btn-sm btn-trinity-gold rounded-pill px-3 py-2 fw-bold"
@@ -189,7 +189,7 @@ export const LandingPage = ({ onOpenAuth, onSelectCourse }) => {
                   <div className="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25 mt-auto">
                     <div>
                       <span className="text-secondary small d-block">Module Fee</span>
-                      <strong className="text-warning fs-5">${module.price.toFixed(2)}</strong>
+                      <strong className="text-warning fs-5">€{module.price.toFixed(2)}</strong>
                     </div>
                     <button
                       className="btn btn-sm btn-trinity-primary rounded-pill px-3 py-2 fw-bold"

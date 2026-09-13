@@ -62,7 +62,7 @@ export const PaymentModal = ({ course, onClose, onSuccess }) => {
                     </div>
                     <div className="text-md-end">
                       <span className="text-secondary small d-block">Course Tuition Fee</span>
-                      <span className="fs-3 fw-bold text-danger" style={{ color: '#7B1113' }}>${course.price.toFixed(2)}</span>
+                      <span className="fs-3 fw-bold text-danger" style={{ color: '#7B1113' }}>€{course.price.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ export const PaymentModal = ({ course, onClose, onSuccess }) => {
 
                 <div className="card border-0 bg-white shadow-sm p-3 mx-auto text-start mb-4" style={{ maxWidth: '480px' }}>
                   <div className="small mb-2"><strong>Course:</strong> {course.title}</div>
-                  <div className="small mb-2"><strong>Amount:</strong> ${course.price.toFixed(2)}</div>
+                  <div className="small mb-2"><strong>Amount:</strong> €{course.price.toFixed(2)}</div>
                   <div className="small mb-2"><strong>Wire Reference:</strong> {submittedOrder.paymentRef}</div>
                   <div className="small text-muted">
                     Your request is now visible in the Admin's <strong>Grant Access</strong> panel. Once cleared, access will be granted instantly!

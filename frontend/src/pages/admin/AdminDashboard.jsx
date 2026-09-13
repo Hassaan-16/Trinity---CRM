@@ -237,7 +237,7 @@ export const AdminDashboard = ({ onViewAttempt }) => {
 
           <div className="card border-0 shadow-sm rounded-4 p-4 text-white" style={{ background: 'linear-gradient(135deg, #2E334D 0%, #161A28 100%)' }}>
             <h6 className="fw-bold text-warning mb-2">Total Settled Tuition</h6>
-            <h2 className="fw-bold mb-2">${totalRevenue.toFixed(2)}</h2>
+            <h2 className="fw-bold mb-2">€{totalRevenue.toFixed(2)}</h2>
             <p className="small text-secondary mb-0">
               Direct external wire payments manually reconciled through registrar audit logs.
             </p>

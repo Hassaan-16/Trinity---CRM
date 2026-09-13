@@ -1,103 +1,105 @@
-# Trinity Aviation Academy — Educational Platform
+# Trinity Aviation Academy — Enterprise Platform
 
-A specialized, comprehensive web application built for aviation engineering students preparing for **EASA Part-66 Basic Licences** (Modules 1–17) and **EASA Part-145 / Part-M** recurrent certifications (Human Factors, Fuel Tank Safety Phase 2, EWIS, Continuing Airworthiness, Maintenance Planning, QA Systems).
-
-Built with **React**, **Bootstrap 5**, and **Vite** with full responsive layout matching the Trinity Academy design standards.
+An educational and examination management platform for aviation engineering students preparing for **EASA Part-66 Basic Licences** (Modules 1–17) and **EASA Part-145 / Part-M** statutory recurrent certifications (Human Factors, Fuel Tank Safety Phase 2, EWIS, Continuing Airworthiness, Maintenance Planning, QA Systems).
 
 ---
 
-## ✈️ Key Features
+## 📁 Project Structure
 
-### 1. Public Portal
-- **Home**: Hero banner, curriculum overview, key stats, student benefits, and dynamic course previews.
-- **About Us**: Academy mission, Part-147 standard alignment, instructional team.
-- **Services**: AME modular training, airline type rating prep, compliance consultation.
-- **Blogs**: EASA regulatory articles, examination tips, and technical summaries with modal reader.
-- **Authentication**: One-click demo logins for **Student** and **Admin**, plus student registration.
+The project has been restructured into clean `frontend/` and `backend/` directories with a unified root `.gitignore`:
 
-### 2. Student Portal
-- **Dashboard**: Overall curriculum progress bar and enrolled subjects.
-- **EASA PART-145 & PART-M COURSES**: Dark slate cards with aviation icons, prices, and enrollment statuses.
-- **EASA PART 66 - MODULES**: Modules 1 through 10+ with individual syllabus information.
-- **Subject Study Hub**:
-  - **Books**: Technical handbooks with interactive reader simulation and download options.
-  - **Notes**: Structured chapter summaries, formula sheets, and study cards.
-  - **Quizzes**: List of quizzes with previous score history and "Start Quiz" launcher.
-- **Interactive Quiz Engine**:
-  - **Randomized Question Bank**: Automatically extracts the configured number of random questions ($N$) from the question bank for each student test attempt.
-  - Live countdown timer, question palette tracker, 4 interactive options (A, B, C, D), flag for review.
-  - Instant scoring with pass/fail evaluation (75% EASA pass mark), confetti celebration, and question-by-question review with explanations.
-- **External Bank Payment Flow**:
-  - When buying a locked subject, displays the official Academy bank account details (Bank Name, Account Title, IBAN, SWIFT/BIC, Branch, and unique student wire reference code).
-  - Prominent notice: *"Payment is made externally via direct bank transfer. The admin manually approves each student upon receipt."*
-  - Student submits transfer reference ID; order is logged in `Pending Approval` state and queued in the Admin's `Grant Access` panel.
-- **My Orders**: Order history matching design with order numbers, date, subjects, total amount, status badges, and simulated Certificate PDF generator.
-- **My Account & Contact**: Profile management, target licence aim (e.g. B1.1, B2), and registrar inquiry form.
-
-### 3. Admin Portal
-- **Dashboard**: Telemetry metrics (Total Students, Active Subjects, Total Quiz Attempts, Pending Wire Approvals, Settled Tuition).
-- **Manage Modules & Manage Courses**:
-  - Data table with ID, Title, Books count, Notes count, Quizzes count, Status, Actions.
-  - Add / Edit modal with 4 tabs: **Basic**, **Books** (with PDF uploads), **Notes**, and **Quizzes**.
-  - Quiz editor with configurable random question count and question bank with 4 MCQ options and correct option radio selector.
-- **Quiz Attempts**:
-  - Comprehensive audit log of every student's quiz attempt.
-  - Candidate details, score %, pass/fail badge, duration, and **View Breakdown** modal showing exact questions served and selected answers.
-- **Grant Access**:
-  - 3-column layout matching design:
-    1. Select Course / Module (with filter by Courses / Modules / All).
-    2. No Access / Applied for Access list (with search, student selection checkboxes, pending wire ref indicators, and "Grant Access" button).
-    3. Has Access list (with search and revoke options).
-  - "+ Add User" modal for registering and enrolling students directly.
-
-### 4. Floating Demo Switcher
-- Includes a floating 1-click role switcher widget at the bottom right (`Student`, `Admin`, `Landing`) for easy review and client feedback on Vercel.
+```
+Trinity---CRM/
+├── .gitignore                   # Unified root .gitignore (Node, Python, Django, IDEs)
+├── README.md                    # Project documentation & runbook
+│
+├── frontend/                    # React 19 + Bootstrap 5 + Vite SPA (Vercel-ready)
+│   ├── src/                     # React application source code
+│   │   ├── components/          # Navigation, modals, role switchers
+│   │   ├── context/             # AppContext state & simulation layer
+│   │   ├── data/                # Initial EASA Part-66 & Part-145 datasets
+│   │   └── pages/               # Public, Student, and Admin portals
+│   ├── index.html               # Main HTML entry point
+│   ├── vite.config.js           # Vite build configuration
+│   ├── vercel.json              # SPA routing rewrite rule
+│   └── package.json             # Frontend dependencies & scripts
+│
+├── backend/                     # Django 5.2 + DRF + Celery + PostgreSQL Service
+│   ├── config/                  # Settings, WSGI/ASGI, URLs, Nginx, Docker env
+│   │   ├── settings/            # base.py, dev.py, prod.py, stage.py
+│   │   └── env/                 # Environment variable configurations
+│   ├── project/                 # Django domain apps
+│   │   ├── users/               # Custom User (email-based, 2 roles: Admin/Student, Google OAuth)
+│   │   ├── curriculum/          # Subjects (Part-66/145), Books (PDFs), Notes, last_certified
+│   │   ├── assessments/         # Quizzes (editable question count), Question Banks, Grading
+│   │   ├── enrollments/         # Orders (wire proof), Entitlements, 3-column Grant Access
+│   │   └── core/                # Base models, logging, health checks
+│   ├── manage.py                # Django CLI management script
+│   ├── Makefile                 # Docker compose lifecycle commands
+│   ├── pyproject.toml           # Python dependencies and tool configs
+│   └── Dockerfile               # Production container image definition
+│
+└── documentation/               # Specifications & Architectural Documentation
+    ├── srs/
+    │   ├── SRS.md               # IEEE 830 compliant Software Requirements Specification
+    │   └── index.html           # Interactive visual HTML presentation of the SRS
+    └── architecture/
+        └── BACKEND_ARCHITECTURE.md  # Detailed backend architectural design & models
+```
 
 ---
 
-## 🚀 Quick Start (Local Development)
+## ✈️ Core Capabilities
 
+1. **User Identity & Roles:**
+   - Strictly 2 user types: **Admin** and **Student**.
+   - Email is the primary unique identifier.
+   - **Google OAuth 2.0**: Native sign-in and registration with Google accounts.
+
+2. **Curriculum & Recertification (`last_certified`):**
+   - EASA Part-66 modules (1–17) and Part-145/M courses.
+   - **2-Year Recurrent Training Cycle**: Tracks `last_certified` and triggers recertification exams every 24 months per EASA Part-145.A.30(e).
+
+3. **Anti-Cheat Random Question Sampling:**
+   - Quizzes have an editable `question_count` ($N$).
+   - When a student launches a test, $N$ questions are randomly drawn from the question bank.
+   - Answer keys and explanations are concealed server-side until submission.
+   - Automatic grading against the official **75% EASA pass mark**.
+
+4. **External Bank Wire & 3-Column Grant Access:**
+   - Bank transfer settlement with unique reference generation (`TRIN-STU-XXXX`).
+   - Admin manages access in a 3-column matrix: Select Subject $\rightarrow$ No Access / Applied students (with pending wire references) $\rightarrow$ Has Access list with revocation.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Running the Frontend (React + Vite)
 ```bash
-# 1. Install dependencies (if not already installed)
+cd frontend
 npm install
-
-# 2. Start the Vite development server
 npm run dev
-
-# 3. Open your browser
-# The local development server will start at http://localhost:3000
+# Application starts at http://localhost:3000
 ```
 
----
-
-## 🌐 Instant Deployment to Vercel
-
-The project is pre-configured with `vercel.json` for single-page application routing.
-
-### Option A: Via GitHub (Recommended)
-1. Commit and push your code to your GitHub repository:
-   ```bash
-   git add .
-   git commit -m "feat: complete Trinity Aviation Academy frontend platform"
-   git push origin main
-   ```
-2. Go to [vercel.com](https://vercel.com), click **Add New Project**, and import your `Trinity---CRM` repository.
-3. Vercel will automatically detect **Vite**; click **Deploy**.
-
-### Option B: Via Vercel CLI
+### 2. Running the Backend (Django)
 ```bash
-npx vercel
+cd backend
+
+# Option A: Local Python virtual environment
+python -m venv venv
+venv\Scripts\activate          # On Windows
+pip install -r config/requirements/local.txt
+python manage.py migrate
+python manage.py runserver 8000
+
+# Option B: Docker Compose
+make dev.up.d
 ```
 
 ---
 
-## 🐍 Future Python Backend Integration Roadmap
-
-When you are ready to build the Python backend (FastAPI / Django REST / Flask):
-1. **API Endpoints**:
-   - `/api/auth/`: JWT login, registration, role verification.
-   - `/api/courses/` & `/api/modules/`: CRUD endpoints with PostgreSQL/SQLite models for Courses, Books, Notes, Quizzes, and Questions.
-   - `/api/quizzes/{id}/attempt/`: Backend random question sampler that selects $N$ questions server-side without exposing the answer keys until submission.
-   - `/api/orders/`: Bank transfer proof submissions, webhook/manual status reconciliation.
-   - `/api/admin/grant-access/`: Bulk access granting and email notification dispatcher.
-2. The current frontend data layer in `src/context/AppContext.jsx` is structured with clean async methods, making it simple to swap local state with standard `fetch()` or `axios` API calls!
+## 📖 Documentation
+- **Interactive SRS Document:** [`documentation/srs/index.html`](documentation/srs/index.html)
+- **Raw SRS Markdown:** [`documentation/srs/SRS.md`](documentation/srs/SRS.md)
+- **Backend Architecture Blueprint:** [`documentation/architecture/BACKEND_ARCHITECTURE.md`](documentation/architecture/BACKEND_ARCHITECTURE.md)

@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRS Specification | Trinity Aviation Academy</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5.3 & Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <style>
+    :root {
+      --trinity-burgundy: #7B1113;
+      --trinity-burgundy-dark: #4A080A;
+      --trinity-burgundy-light: #9B1B20;
+      --trinity-gold: #C5A059;
+      --trinity-gold-light: #dfbe7b;
+      --trinity-dark: #121520;
+      --trinity-card: #1D2232;
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #F8FAFC;
+      color: #1E293B;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, .font-heading {
+      font-family: var(--font-heading);
+    }
+
+    /* Executive Header */
+    .srs-header {
+      background: linear-gradient(135deg, #420608 0%, #7B1113 50%, #1a1e2d 100%);
+      color: #FFFFFF;
+      border-bottom: 3px solid var(--trinity-gold);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srs-header::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: radial-gradient(circle at 85% 15%, rgba(197, 160, 89, 0.2) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Sticky Subnav Tabs */
+    .srs-nav-tabs {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+    }
+
+    .nav-pills .nav-link {
+      color: #64748B;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-pills .nav-link:hover {
+      color: var(--trinity-burgundy);
+      background: #F1F5F9;
+    }
+
+    .nav-pills .nav-link.active {
+      background: var(--trinity-burgundy);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(123, 17, 19, 0.25);
+    }
+
+    /* Visual Architecture Box */
+    .arch-card {
+      background: linear-gradient(145deg, #1E2333 0%, #161A26 100%);
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      border-radius: 16px;
+      color: #FFFFFF;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .flow-step {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid var(--trinity-burgundy);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      position: relative;
+      height: 100%;
+      transition: transform 0.2s ease;
+    }
+
+    .flow-step:hover {
+      transform: translateY(-4px);
+    }
+
+    .step-number {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: var(--trinity-burgundy);
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(123, 17, 19, 0.4);
+    }
+
+    /* Requirement Cards */
+    .req-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: all 0.2s ease;
+    }
+
+    .req-card:hover {
+      border-color: var(--trinity-gold);
+      box-shadow: 0 8px 24px rgba(123, 17, 19, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .req-badge {
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #DBEAFE;
+    }
+
+    .badge-easa {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FDE68A;
+    }
+
+    .badge-security {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FECACA;
+    }
+
+    /* Code Blocks */
+    pre, code {
+      font-family: var(--font-code);
+    }
+
+    .code-block {
+      background: #0F172A;
+      color: #38BDF8;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      border: 1px solid #334155;
+    }
+
+    /* Print styling */
+    @media print {
+      .srs-nav-tabs, .btn-print, .no-print {
+        display: none !important;
+      }
+      .tab-pane {
+        display: block !important;
+        opacity: 1 !important;
+        margin-bottom: 40px;
+        page-break-before: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Executive Header -->
+  <header class="srs-header py-5 px-3 px-md-5">
+    <div class="container-fluid">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-warning text-dark text-uppercase px-3 py-2 fw-bold" style="letter-spacing: 1px;">
+              <i class="bi bi-shield-check me-1"></i> IEEE 830-1998 / ISO 29148 Standard
+            </span>
+            <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-25 px-3 py-2">
+              Doc Version 1.0.0
+            </span>
+            <span class="badge bg-success bg-opacity-25 text-success-emphasis border border-success-subtle px-3 py-2">
+              Status: Verified & Baseline
+            </span>
+          </div>
+
+          <h1 class="display-4 fw-bold text-white mb-2" style="letter-spacing: 1px;">
+            TRINITY AVIATION ACADEMY
+          </h1>
+          <p class="lead text-warning fw-semibold mb-3">
+            Software Requirements Specification (SRS) — Aviation Educational Platform & CRM
+          </p>
+          <p class="text-light text-opacity-80 small mb-0" style="max-width: 780px;">
+            Defines the complete functional architecture, randomized examination engines, external bank transfer approvals, EASA Part-66 & Part-145/M curriculum management, and Python REST integration contracts.
+          </p>
+        </div>
+
+        <div class="col-lg-4 text-lg-end">
+          <div class="p-3 rounded-4 bg-black bg-opacity-30 border border-white border-opacity-15 d-inline-block text-start">
+            <div class="small text-secondary mb-1">Target Regulatory Compliance:</div>
+            <div class="fw-bold text-white mb-2"><i class="bi bi-airplane-engines text-warning me-1"></i> EASA Reg (EU) 1321/2014</div>
+            <div class="small text-secondary mb-1">Examination Pass Benchmark:</div>
+            <div class="fw-bold text-warning mb-3">75.0% EASA Standard</div>
+            <div class="d-flex gap-2">
+              <button onclick="window.print()" class="btn btn-sm btn-outline-light rounded-pill px-3 btn-print">
+                <i class="bi bi-printer me-1"></i> Print / PDF
+              </button>
+              <a href="SRS.md" class="btn btn-sm btn-warning text-dark fw-bold rounded-pill px-3">
+                <i class="bi bi-markdown me-1"></i> View Markdown
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Nav Tabs Bar -->
+  <div class="srs-nav-tabs py-2 px-3 px-md-5">
+    <div class="container-fluid">
+      <ul class="nav nav-pills gap-1 flex-nowrap overflow-x-auto pb-1" id="srsTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="overview-tab" data-bs-toggle="pill" data-bs-target="#tab-overview" type="button" role="tab">
+            <i class="bi bi-compass"></i> 1. Overview & Scope
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="arch-tab" data-bs-toggle="pill" data-bs-target="#tab-arch" type="button" role="tab">
+            <i class="bi bi-diagram-3"></i> 2. Architecture & Workflows
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="fr-tab" data-bs-toggle="pill" data-bs-target="#tab-fr" type="button" role="tab">
+            <i class="bi bi-card-checklist"></i> 3. Functional Requirements
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="nfr-tab" data-bs-toggle="pill" data-bs-target="#tab-nfr" type="button" role="tab">
+            <i class="bi bi-speedometer2"></i> 4. Non-Functional Requirements
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="data-tab" data-bs-toggle="pill" data-bs-target="#tab-data" type="button" role="tab">
+            <i class="bi bi-database"></i> 5. Data Models & Schema
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="api-tab" data-bs-toggle="pill" data-bs-target="#tab-api" type="button" role="tab">
+            <i class="bi bi-code-slash"></i> 6. Python REST API
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tab Contents -->
+  <main class="container-fluid py-4 px-3 px-md-5">
+    <div class="tab-content" id="srsTabContent">
+
+      <!-- TAB 1: OVERVIEW & SCOPE -->
+      <div class="tab-pane fade show active" id="tab-overview" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+              <h3 class="fw-bold text-dark font-heading mb-3" style="color: var(--trinity-burgundy);">
+                1.1 Purpose & Vision
+              </h3>
+              <p class="text-secondary leading-relaxed mb-3">
+                This document defines the formal software requirements for the <strong>Trinity Aviation Academy</strong> educational platform and CRM. The system serves candidate Aircraft Maintenance Engineers (AME) pursuing theoretical mastery of the <strong>EASA Part-66</strong> syllabus (Modules 1 to 17) as well as certified maintenance personnel fulfilling mandatory recurrent training under <strong>EASA Part-145 and Part-M</strong>.
+              </p>
+              <p class="text-secondary leading-relaxed">
+                The platform is engineered around three core operational pillars:
+              </p>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="p-3 rounded-3 bg-light border border-secondary border-opacity-25 h-100">
+                    <div class="fw-bold text-dark mb-1"><i class="bi bi-book text-danger me-1"></i> Modular Study Hub</div>
+                    <span class="small text-muted">Integrated technical book readers (PDF simulator) and syllabus revision notes.</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="p-3 rounded-3 bg-light border border-secondary border-opacity-25 h-100">
+                    <div class="fw-bold text-dark mb-1"><i class="bi bi-shuffle text-warning me-1"></i> Random Exam Bank</div>
+                    <span class="small text-muted">Configurable sampling of $N$ questions per attempt with 75% EASA pass marks.</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="p-3 rounded-3 bg-light border border-secondary border-opacity-25 h-100">
+                    <div class="fw-bold text-dark mb-1"><i class="bi bi-bank text-success me-1"></i> Bank Wire Workflow</div>
+                    <span class="small text-muted">Direct external transfer settlement with manual registrar validation.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Definitions & References -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+              <h4 class="fw-bold text-dark font-heading mb-3">Regulatory Definitions & Acronyms</h4>
+              <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle small mb-0">
+                  <thead class="table-dark">
+                    <tr>
+                      <th style="width: 140px;">Acronym</th>
+                      <th>Official Aviation Standard Definition</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><strong>EASA</strong></td><td>European Union Aviation Safety Agency</td></tr>
+                    <tr><td><strong>Part-66</strong></td><td>EU Regulation governing Aircraft Maintenance Licences (A, B1.1, B1.2, B2, C)</td></tr>
+                    <tr><td><strong>Part-145</strong></td><td>EU Regulation for Approved Maintenance Organisations (Hangar & Line maintenance)</td></tr>
+                    <tr><td><strong>Part-M / CAMO</strong></td><td>Continuing Airworthiness Management Organisation standards</td></tr>
+                    <tr><td><strong>EWIS</strong></td><td>Electrical Wiring Interconnection System (AMC 20-22 Target Groups 1–8)</td></tr>
+                    <tr><td><strong>FTS Phase 2</strong></td><td>Fuel Tank Safety & Critical Design Configuration Control Limitations (CDCCL)</td></tr>
+                    <tr><td><strong>SMS</strong></td><td>Safety Management Systems under Regulation (EU) 2021/1963</td></tr>
+                    <tr><td><strong>MCQ</strong></td><td>Multiple Choice Question (4 options A/B/C/D, exactly 1 correct key)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Personas -->
+          <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-white mb-4" style="background: linear-gradient(145deg, #1E2333 0%, #161A26 100%);">
+              <h5 class="fw-bold text-warning mb-3"><i class="bi bi-people me-2"></i> User Personas</h5>
+              
+              <div class="mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <strong class="text-white">AME Student</strong>
+                  <span class="badge bg-primary">Candidate</span>
+                </div>
+                <p class="small text-secondary mb-0">
+                  Enrolls in Part-66 modules, reads books, practices randomized timed quizzes, submits bank transfer references.
+                </p>
+              </div>
+
+              <div class="mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <strong class="text-white">Academy Registrar</strong>
+                  <span class="badge bg-danger">Administrator</span>
+                </div>
+                <p class="small text-secondary mb-0">
+                  Reconciles bank transfer wire slips, manages access entitlements in 3-column matrix, and authors course content.
+                </p>
+              </div>
+
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <strong class="text-white">Flight / Quality Auditor</strong>
+                  <span class="badge bg-warning text-dark">Auditor</span>
+                </div>
+                <p class="small text-secondary mb-0">
+                  Reviews candidate quiz attempt telemetry, question distributions, and compliance with 75% thresholds.
+                </p>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-4 border-warning">
+              <h6 class="fw-bold text-dark mb-2">Key Constraint: External Banking</h6>
+              <p class="small text-secondary mb-0">
+                Aviation student tuition is processed via direct wire transfers into the Academy's Standard Chartered / Emirates NBD accounts. Access is granted manually by registrar audit.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: ARCHITECTURE & WORKFLOWS -->
+      <div class="tab-pane fade" id="tab-arch" role="tabpanel">
+        <div class="row g-4 mb-4">
+          <div class="col-12">
+            <div class="arch-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold font-heading text-warning m-0">
+                  <i class="bi bi-diagram-3 me-2"></i> System High-Level Architecture
+                </h4>
+                <span class="badge bg-secondary font-monospace">React SPA + Python REST Architecture</span>
+              </div>
+
+              <!-- Visual SVG / HTML Architecture Canvas -->
+              <div class="p-4 rounded-3" style="background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08);">
+                <div class="row g-3 text-center align-items-stretch">
+                  <div class="col-md-3">
+                    <div class="p-3 rounded-3 bg-dark border border-danger h-100">
+                      <div class="badge bg-danger mb-2">CLIENT LAYER</div>
+                      <h6 class="text-white fw-bold">User Interface (SPA)</h6>
+                      <ul class="list-unstyled small text-secondary text-start mb-0">
+                        <li>• Public Landing & Blogs</li>
+                        <li>• Student Learning Portal</li>
+                        <li>• Admin CRM & Access Matrix</li>
+                        <li>• 1-Click Role Switcher</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-1 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-arrow-left-right text-warning fs-3"></i>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="p-3 rounded-3 bg-dark border border-warning h-100">
+                      <div class="badge bg-warning text-dark mb-2">APPLICATION LOGIC</div>
+                      <h6 class="text-white fw-bold">Platform State & Engine</h6>
+                      <ul class="list-unstyled small text-secondary text-start mb-0">
+                        <li>• Randomized Question Bank Sampler ($N$ items)</li>
+                        <li>• Exam Countdown Timer & Auto-submit</li>
+                        <li>• Wire Payment Entitlement State Machine</li>
+                        <li>• LocalStorage Persistence / REST Client</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-1 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-arrow-left-right text-warning fs-3"></i>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="p-3 rounded-3 bg-dark border border-success h-100">
+                      <div class="badge bg-success mb-2">FUTURE BACKEND</div>
+                      <h6 class="text-white fw-bold">Python REST Service</h6>
+                      <ul class="list-unstyled small text-secondary text-start mb-0">
+                        <li>• FastAPI / Django REST Framework</li>
+                        <li>• Relational DB (PostgreSQL)</li>
+                        <li>• Server-Side Answer Key Masking</li>
+                        <li>• Wire Reconciliation Logging</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- External Payment Workflow Visual Flow -->
+        <h4 class="fw-bold text-dark font-heading mb-3" style="color: var(--trinity-burgundy);">
+          <i class="bi bi-arrow-repeat me-2"></i> External Bank Payment & Manual Approval Workflow
+        </h4>
+
+        <div class="row g-4 mb-5">
+          <div class="col-md-3">
+            <div class="flow-step">
+              <span class="step-number">STEP 1</span>
+              <h6 class="fw-bold text-dark mt-2">Course Selection</h6>
+              <p class="small text-secondary mb-0">
+                Candidate selects an EASA Part-66 or Part-145 subject. System opens the Payment Modal displaying price and bank transfer instructions.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="flow-step">
+              <span class="step-number">STEP 2</span>
+              <h6 class="fw-bold text-dark mt-2">External Bank Transfer</h6>
+              <p class="small text-secondary mb-0">
+                Candidate remits tuition via direct wire to the Academy bank account, quoting their auto-generated reference code (e.g. <code>TRIN-ALE-8821</code>).
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="flow-step">
+              <span class="step-number">STEP 3</span>
+              <h6 class="fw-bold text-dark mt-2">Submit Wire Proof</h6>
+              <p class="small text-secondary mb-0">
+                Candidate enters their transaction reference. Order transitions to <code>Pending Approval</code> in "My Orders" and queues in the Admin matrix.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="flow-step">
+              <span class="step-number">STEP 4</span>
+              <h6 class="fw-bold text-dark mt-2">Admin Clearance</h6>
+              <p class="small text-secondary mb-0">
+                Registrar validates cleared funds, clicks <strong>Grant Access</strong>. Course materials unlock instantly and status updates to <code>Completed</code>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Examination Engine Workflow -->
+        <h4 class="fw-bold text-dark font-heading mb-3" style="color: var(--trinity-burgundy);">
+          <i class="bi bi-cpu me-2"></i> Examination Engine Logic (Random Question Sampler)
+        </h4>
+
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+          <div class="row g-4 align-items-center">
+            <div class="col-md-8">
+              <div class="d-flex flex-column gap-2 small">
+                <div class="p-2 rounded bg-light border d-flex align-items-center gap-3">
+                  <span class="badge bg-danger">1. Question Bank</span>
+                  <span>Administrator creates bank of $M$ questions with 4 options and 1 correct key.</span>
+                </div>
+                <div class="p-2 rounded bg-light border d-flex align-items-center gap-3">
+                  <span class="badge bg-warning text-dark">2. Random Sampling</span>
+                  <span>Upon student launch, algorithm dynamically samples $N$ random questions without duplication.</span>
+                </div>
+                <div class="p-2 rounded bg-light border d-flex align-items-center gap-3">
+                  <span class="badge bg-info text-dark">3. Timed Session</span>
+                  <span>Live countdown timer runs; candidate can navigate via palette or flag items for review.</span>
+                </div>
+                <div class="p-2 rounded bg-light border d-flex align-items-center gap-3">
+                  <span class="badge bg-success">4. EASA Evaluation</span>
+                  <span>Answers evaluated against $75\%$ benchmark; confetti fires on pass; question breakdown audited.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="p-4 rounded-4 bg-dark text-white">
+                <div class="display-5 fw-bold text-warning mb-1">75%</div>
+                <div class="text-uppercase small fw-semibold" style="letter-spacing: 1px;">EASA Pass Benchmark</div>
+                <hr class="border-secondary my-2">
+                <div class="small text-secondary">All tests recorded in administrative audit logs</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: FUNCTIONAL REQUIREMENTS -->
+      <div class="tab-pane fade" id="tab-fr" role="tabpanel">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+          <div>
+            <h3 class="fw-bold font-heading text-dark m-0" style="color: var(--trinity-burgundy);">
+              Functional Requirements (FR) Matrix
+            </h3>
+            <span class="text-secondary small">Comprehensive traceability specifications categorized by subsystem</span>
+          </div>
+
+          <div class="d-flex gap-2">
+            <input type="text" id="frSearchInput" class="form-control form-control-sm" placeholder="Search requirements..." style="max-width: 260px;" onkeyup="filterRequirements()">
+            <select id="frCategoryFilter" class="form-select form-select-sm" style="max-width: 200px;" onchange="filterRequirements()">
+              <option value="ALL">All Categories</option>
+              <option value="FR-PUB">Public Portal (PUB)</option>
+              <option value="FR-STU">Student LMS (STU)</option>
+              <option value="FR-PAY">Bank Payments (PAY)</option>
+              <option value="FR-ADM">Admin CRM (ADM)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row g-3" id="frContainer">
+
+          <!-- FR-PUB Items -->
+          <div class="col-md-6 fr-item" data-cat="FR-PUB" data-text="navigation brand logo home about services blogs login signup">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-PUB-01</span>
+                <span class="badge bg-light text-secondary border">Public Navigation</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">Top Navigation & Brand Identity</h6>
+              <p class="small text-secondary mb-0">
+                System shall provide a persistent top navigation bar with brand logo, links to Home, About Us, Services, Blogs, and a prominent Login / Sign Up action button.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 fr-item" data-cat="FR-PUB" data-text="curriculum showcase easa part 145 part 66 modules courses preview pricing">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-PUB-02</span>
+                <span class="badge bg-light text-secondary border">Curriculum Showcase</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">EASA Curriculum Preview Showcases</h6>
+              <p class="small text-secondary mb-0">
+                System shall showcase cards for EASA Part-145/Part-M courses and Part-66 modules with course title, syllabus code, description, duration, and tuition fee.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 fr-item" data-cat="FR-PUB" data-text="demo role switcher vercel quick 1-click student admin landing testing">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-PUB-05</span>
+                <span class="badge bg-warning text-dark border">Reviewer Utility</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">1-Click Demo Role Switcher</h6>
+              <p class="small text-secondary mb-0">
+                System shall supply a floating bottom-right widget allowing reviewers on Vercel to switch instantly between Student View (Alex Vance), Admin View (Hassaan Admin), and Landing Page.
+              </p>
+            </div>
+          </div>
+
+          <!-- FR-STU Items -->
+          <div class="col-md-6 fr-item" data-cat="FR-STU" data-text="student dashboard completion progress overall percentage enrolled subjects">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-STU-01</span>
+                <span class="badge bg-primary bg-opacity-10 text-primary border">Student Dashboard</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">Curriculum Progress Bar</h6>
+              <p class="small text-secondary mb-0">
+                System shall compute and render overall progress: (Enrolled Subjects / Total Available) * 100%, updating reactively upon access grant or enrollment.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 fr-item" data-cat="FR-STU" data-text="study hub books notes quizzes tabs pdf reader download formula">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-STU-04</span>
+                <span class="badge bg-primary bg-opacity-10 text-primary border">Course Study Hub</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">3-Tab Subject Learning Interface</h6>
+              <p class="small text-secondary mb-0">
+                Enrolled subject view shall provide 3 dedicated tabs: Books (with simulated interactive PDF reader mode), Notes (chapter summaries and formulas), and Quizzes.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 fr-item" data-cat="FR-STU" data-text="quiz engine random question bank sampler timer 75 percent easa pass confetti breakdown">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-STU-05</span>
+                <span class="badge badge-easa">Exam Engine</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">Randomized Quiz Engine & Evaluation</h6>
+              <p class="small text-secondary mb-0">
+                System shall randomly extract $N$ questions from question bank per attempt, maintain countdown timer, evaluate against 75% pass mark, trigger celebratory confetti, and provide question-by-question review.
+              </p>
+            </div>
+          </div>
+
+          <!-- FR-PAY Items -->
+          <div class="col-md-6 fr-item" data-cat="FR-PAY" data-text="payment bank details iban swift beneficiary reference external manual approval">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-PAY-01</span>
+                <span class="badge bg-success bg-opacity-10 text-success border">Payment Protocol</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">Official Bank Remittance Presentation</h6>
+              <p class="small text-secondary mb-0">
+                When enrolling in locked course, system presents official bank details (Bank Name, Account Title, IBAN, SWIFT, Branch) and auto-generated unique reference code (e.g. <code>TRIN-STU-XXXX</code>).
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 fr-item" data-cat="FR-PAY" data-text="order status pending approval my orders certificate download">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-PAY-04</span>
+                <span class="badge bg-success bg-opacity-10 text-success border">Order Tracking</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">Order Lifecycle & Certificates</h6>
+              <p class="small text-secondary mb-0">
+                Submitted bank proofs place order in <code>Pending Approval</code>. Once admin clears funds, order marks <code>Completed</code> and student can generate Certificate of Completion PDF.
+              </p>
+            </div>
+          </div>
+
+          <!-- FR-ADM Items -->
+          <div class="col-md-6 fr-item" data-cat="FR-ADM" data-text="admin dashboard telemetry kpi students subjects quiz attempts pending revenue">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-ADM-01</span>
+                <span class="badge bg-danger bg-opacity-10 text-danger border">Admin KPI</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">Administrative Telemetry Dashboard</h6>
+              <p class="small text-secondary mb-0">
+                Renders high-level metrics (Total Registered Students, Active Subjects, Total Quiz Attempts, Pending Bank Approvals, Settled Tuition $) and alerts for pending orders.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 fr-item" data-cat="FR-ADM" data-text="manage modules courses crud modal basic books notes quizzes questions mcq bank">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-ADM-05</span>
+                <span class="badge bg-danger bg-opacity-10 text-danger border">Content Authoring</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">4-Tab Course & Module Authoring</h6>
+              <p class="small text-secondary mb-0">
+                Admin modal supporting Basic details, Books (PDF upload simulator), Notes, and Quizzes with configurable question count and MCQ question bank editor.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 fr-item" data-cat="FR-ADM" data-text="quiz attempts audit ledger student scores breakdown questions answers">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-ADM-06</span>
+                <span class="badge bg-danger bg-opacity-10 text-danger border">Audit Ledger</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">Quiz Attempts Audit Ledger</h6>
+              <p class="small text-secondary mb-0">
+                Audit log recording every student's quiz attempt with a "View Breakdown" modal revealing the exact questions served, student responses, and correct keys.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 fr-item" data-cat="FR-ADM" data-text="grant access 3 column workflow select course no access applied has access batch reconcile">
+            <div class="req-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="req-badge">FR-ADM-08</span>
+                <span class="badge bg-danger bg-opacity-10 text-danger border">Entitlement Matrix</span>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">3-Column Grant Access Workflow</h6>
+              <p class="small text-secondary mb-0">
+                Column 1 (Select Subject) -> Column 2 (No Access / Applied students with checkboxes & pending wire ref badges) -> Column 3 (Has Access with revoke). Batch activation reconciles pending orders.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB 4: NON-FUNCTIONAL REQUIREMENTS -->
+      <div class="tab-pane fade" id="tab-nfr" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white border-top border-4 border-primary h-100">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-speedometer2 text-primary fs-4"></i>
+                <h5 class="fw-bold text-dark m-0">Performance</h5>
+              </div>
+              <ul class="list-unstyled small text-secondary d-flex flex-column gap-3 mb-0">
+                <li>
+                  <strong class="text-dark d-block">NFR-PERF-01: Page Load & TTI</strong>
+                  Initial load under 1.5 seconds on mobile & broadband connections.
+                </li>
+                <li>
+                  <strong class="text-dark d-block">NFR-PERF-02: Client Latency</strong>
+                  Tab switching and modal opening in under 100ms.
+                </li>
+                <li>
+                  <strong class="text-dark d-block">NFR-PERF-03: Random Sampler</strong>
+                  Drawing $N$ random questions from bank in under 50ms.
+                </li>
+                <li>
+                  <strong class="text-dark d-block">NFR-PERF-04: Asset Bundle</strong>
+                  Production JavaScript bundle $\le 450 \text{ KB}$ gzipped.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white border-top border-4 border-danger h-100">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-shield-lock text-danger fs-4"></i>
+                <h5 class="fw-bold text-dark m-0">Security & RBAC</h5>
+              </div>
+              <ul class="list-unstyled small text-secondary d-flex flex-column gap-3 mb-0">
+                <li>
+                  <strong class="text-dark d-block">NFR-SEC-01: Role Enforcement</strong>
+                  Strict separation between Student and Admin privileges.
+                </li>
+                <li>
+                  <strong class="text-dark d-block">NFR-SEC-02: Transport Encryption</strong>
+                  TLS 1.3 enforced across all network transmissions.
+                </li>
+                <li>
+                  <strong class="text-dark d-block">NFR-SEC-03: Input Sanitization</strong>
+                  All administrative and student inputs sanitized against XSS.
+                </li>
+                <li>
+                  <strong class="text-dark d-block">NFR-SEC-04: Key Concealment</strong>
+                  Answer keys concealed server-side until final submission.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white border-top border-4 border-warning h-100">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-check2-circle text-warning fs-4"></i>
+                <h5 class="fw-bold text-dark m-0">EASA Compliance</h5>
+              </div>
+              <ul class="list-unstyled small text-secondary d-flex flex-column gap-3 mb-0">
+                <li>
+                  <strong class="text-dark d-block">NFR-REG-01: 75% Pass Standard</strong>
+                  Mandatory pass threshold aligned with EASA Part-66 Appendix II.
+                </li>
+                <li>
+                  <strong class="text-dark d-block">NFR-REG-02: MCQ Structure</strong>
+                  Exactly 4 options per question with 1 unambiguous correct key.
+                </li>
+                <li>
+                  <strong class="text-dark d-block">NFR-REG-03: Audit Trail</strong>
+                  Granular timestamped records of all test questions and responses.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: DATA MODELS & SCHEMA -->
+      <div class="tab-pane fade" id="tab-data" role="tabpanel">
+        <h4 class="fw-bold font-heading text-dark mb-3" style="color: var(--trinity-burgundy);">
+          <i class="bi bi-database me-2"></i> Relational Entity Schema
+        </h4>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white border-top border-3 border-danger h-100">
+              <div class="fw-bold text-dark mb-2">User Entity</div>
+              <ul class="list-unstyled small text-muted font-monospace mb-0">
+                <li>• id: String (PK)</li>
+                <li>• email: String (Unique)</li>
+                <li>• full_name: String</li>
+                <li>• role: Enum(Admin/Student)</li>
+                <li>• phone: String</li>
+                <li>• is_active: Boolean</li>
+                <li>• created_at: DateTime</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white border-top border-3 border-primary h-100">
+              <div class="fw-bold text-dark mb-2">Course / Module</div>
+              <ul class="list-unstyled small text-muted font-monospace mb-0">
+                <li>• id: String (PK)</li>
+                <li>• code: String (Unique)</li>
+                <li>• title: String</li>
+                <li>• category: Enum (Course/Mod)</li>
+                <li>• price: Decimal</li>
+                <li>• duration: String</li>
+                <li>• lastCertified: Date</li>
+                <li>• recertIntervalMonths: 24</li>
+                <li>• books: Array&lt;Book&gt;</li>
+                <li>• notes: Array&lt;Note&gt;</li>
+                <li>• quizzes: Array&lt;Quiz&gt;</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white border-top border-3 border-warning h-100">
+              <div class="fw-bold text-dark mb-2">Quiz & MCQ Bank</div>
+              <ul class="list-unstyled small text-muted font-monospace mb-0">
+                <li>• id: String (PK)</li>
+                <li>• title: String</li>
+                <li>• timeLimitMinutes: Int</li>
+                <li>• passingScore: Int (75)</li>
+                <li>• questionCount: Editable N</li>
+                <li>• questions: Array&lt;MCQ&gt;</li>
+                <li>&nbsp;&nbsp;↳ text: String</li>
+                <li>&nbsp;&nbsp;↳ options: Array[4]</li>
+                <li>&nbsp;&nbsp;↳ correctOption: Int</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white border-top border-3 border-success h-100">
+              <div class="fw-bold text-dark mb-2">Order & Wire Proof</div>
+              <ul class="list-unstyled small text-muted font-monospace mb-0">
+                <li>• id: String (PK)</li>
+                <li>• studentEmail: String</li>
+                <li>• courseIds: Array</li>
+                <li>• total: Decimal</li>
+                <li>• status: Enum (Pending/Comp)</li>
+                <li>• date: Date</li>
+                <li>• paymentRef: String</li>
+                <li>• bankProofNotes: String</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: PYTHON REST API -->
+      <div class="tab-pane fade" id="tab-api" role="tabpanel">
+        <h4 class="fw-bold font-heading text-dark mb-3" style="color: var(--trinity-burgundy);">
+          <i class="bi bi-code-slash me-2"></i> Python Backend Integration Specifications (FastAPI / Django)
+        </h4>
+
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+              <h6 class="fw-bold text-dark mb-2">Endpoint: Start Randomized Quiz Attempt</h6>
+              <p class="small text-secondary mb-3">
+                Extracts $N$ random questions from the database without leaking answer keys.
+              </p>
+              <div class="code-block">
+POST /api/v1/quizzes/{quiz_id}/start-attempt
+Authorization: Bearer &lt;student_jwt_token&gt;
+
+// Response (200 OK)
+{
+  "session_id": "sess-99214-m01",
+  "quiz_title": "Quiz 1: Fundamentals of Mathematics",
+  "time_limit_minutes": 15,
+  "passing_score": 75,
+  "total_questions": 5,
+  "questions": [
+    {
+      "id": "q-m1-02",
+      "text": "Convert binary 101101 to decimal equivalent:",
+      "options": ["35", "41", "45", "49"]
+    },
+    {
+      "id": "q-m1-05",
+      "text": "Area of a circle with radius 7 cm (pi=22/7)?",
+      "options": ["154 cm²", "144 cm²", "168 cm²", "176 cm²"]
+    }
+  ]
+}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+              <h6 class="fw-bold text-dark mb-2">Endpoint: Submit Bank Wire Reference</h6>
+              <p class="small text-secondary mb-3">
+                Registers order into Pending Approval state for manual registrar review.
+              </p>
+              <div class="code-block">
+POST /api/v1/orders/submit-wire
+Authorization: Bearer &lt;student_jwt_token&gt;
+
+// Request Payload
+{
+  "course_id": "course-1",
+  "payment_ref": "TRIN-VNC-9021",
+  "remitting_bank": "Barclays UK",
+  "notes": "Direct SWIFT wire submitted 11:30 AM"
+}
+
+// Response (201 Created)
+{
+  "order_id": "ORD-2026-881",
+  "status": "Pending Approval",
+  "amount": 299.00,
+  "notice": "Awaiting manual administrative verification."
+}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="py-4 bg-dark text-white border-top border-secondary border-opacity-25 mt-5">
+    <div class="container-fluid px-3 px-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center small text-secondary">
+      <div>
+        © 2026 Trinity Aviation Academy. Software Requirements Specification v1.0.0
+      </div>
+      <div class="d-flex gap-3 mt-2 mt-md-0">
+        <a href="SRS.md" class="text-warning text-decoration-none">Raw SRS.md Document</a>
+        <span>•</span>
+        <span>EASA Training Regulation (EU) 1321/2014</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Real-time Requirements Filter function
+    function filterRequirements() {
+      const searchVal = document.getElementById('frSearchInput').value.toLowerCase();
+      const catVal = document.getElementById('frCategoryFilter').value;
+      const items = document.querySelectorAll('.fr-item');
+
+      items.forEach(item => {
+        const itemCat = item.getAttribute('data-cat');
+        const itemText = item.getAttribute('data-text');
+
+        const matchesCat = (catVal === 'ALL' || itemCat === catVal);
+        const matchesSearch = (!searchVal || itemText.includes(searchVal));
+
+        if (matchesCat && matchesSearch) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

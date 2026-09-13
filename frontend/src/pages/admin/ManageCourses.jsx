@@ -107,7 +107,7 @@ export const ManageCourses = () => {
                     </td>
                     <td>
                       <strong className="text-dark d-block">{course.title}</strong>
-                      <span className="text-muted small">Price: ${course.price?.toFixed(2)} • {course.duration}</span>
+                      <span className="text-muted small">Price: €{course.price?.toFixed(2)} • {course.duration}</span>
                     </td>
                     <td className="text-center">
                       <span className="badge bg-light text-dark border">
